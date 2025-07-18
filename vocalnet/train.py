@@ -6,7 +6,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 from dataset import MeowVocalDataset
 from model import VocalNet_CNN
-from loss import compute_loss
+from loss import loss_fn
 
 def train(args):
     # TensorBoard writer
@@ -41,7 +41,7 @@ def train(args):
 
             optimizer.zero_grad()
             pred = model(meow, instrument)
-            loss, logs = loss_fn(pred_waveform, meow_waveform, instrument_waveform)
+            loss, logs = loss_fn(pred, meow, instrument)
             loss.backward()
             optimizer.step()
 
